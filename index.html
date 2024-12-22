@@ -1,0 +1,72 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraWear Order System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to AuraWear</h1>
+        <p>Your one-stop shop for the latest trends in clothing.</p>
+    </header>
+
+    <main>
+        <section class="products">
+            <h2>Our Featured Products</h2>
+            <div class="product-list">
+                <div class="product">
+                    <img src="product1.jpg" alt="T-Shirt">
+                    <h3>Stylish T-Shirt</h3>
+                    <p>Price: $20</p>
+                    <button class="order-btn" data-details="Stylish T-Shirt - $20">Order Now</button>
+                </div>
+                <div class="product">
+                    <img src="product2.jpg" alt="Jeans">
+                    <h3>Classic Jeans</h3>
+                    <p>Price: $40</p>
+                    <button class="order-btn" data-details="Classic Jeans - $40">Order Now</button>
+                </div>
+                <div class="product">
+                    <img src="product3.jpg" alt="Hoodie">
+                    <h3>Cozy Hoodie</h3>
+                    <p>Price: $30</p>
+                    <button class="order-btn" data-details="Cozy Hoodie - $30">Order Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="order-form-section">
+            <h2>Place Your Order</h2>
+            <form id="orderForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your full name" required>
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" placeholder="Your phone number" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" placeholder="Your shipping address" required></textarea>
+
+                <label for="orderDetails">Order Details:</label>
+                <textarea id="orderDetails" name="orderDetails" placeholder="Selected product details" readonly required></textarea>
+
+                <button type="submit">Place Order</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AuraWear. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+
+
