@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const orderData = { order_id: orderId, name, email, phone, address, total_price: total, items };
     
         // Send data to backend
-        fetch("http://localhost:3111/orders", {
+        fetch("https://aurawear-backend.onrender.com/orders", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
