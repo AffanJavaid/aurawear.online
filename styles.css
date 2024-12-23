@@ -1,15 +1,12 @@
-.price {
-    font-size: 18px;
-    color: #555;
+
+.original-price {
+    text-decoration: line-through;
+    color: red; /* Optional: Make the crossed-out price stand out */
+    margin-right: 10px;
 }
 
 .sale-price {
-    font-size: 20px;
-    color: red;
-    text-decoration: line-through;
-    margin-left: 10px;
-}
-
-.cart-items {
-    margin-bottom: 20px;
+    color: green;
+    font-weight: bold;
+    font-size: 20px; /* Slightly larger to emphasize the sale price */
 }
