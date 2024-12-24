@@ -78,7 +78,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const orderData = { order_id: orderId, name, email, phone, address, total_price: total, items };
 
-        // Send data to backend
+        // Show confirmation message immediately
+        alert("Thank you! Your order has been placed successfully. We will process it shortly.");
+
+        // Hide the order modal immediately
+        orderFormModal.hide();
+
+        // Clear the cart and update the display
+        cart = [];
+        updateCart();
+
+        // Send data to backend asynchronously
         fetch("https://aurawear-backend.onrender.com/orders", {
             method: "POST",
             headers: {
@@ -88,14 +98,10 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then((response) => response.json())
             .then((data) => {
-                alert(`Order placed successfully! Order ID: ${data.orderId}`);
-                orderFormModal.hide();
-                cart = [];
-                updateCart();
+                console.log(`Order submitted to backend successfully! Order ID: ${data.orderId}`);
             })
             .catch((error) => {
-                alert("Error placing order. Please try again.");
-                console.error(error);
+                console.error("Error submitting order to backend:", error);
             });
     });
 });
