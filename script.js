@@ -104,56 +104,52 @@ document.addEventListener("DOMContentLoaded", () => {
 //                 console.error("Error submitting order to backend:", error);
 //             });
 //     });
-    orderForm.addEventListener("submit", (e) => {
-        e.preventDefault();
+orderForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const phone = document.getElementById("phone").value;
-        const address = document.getElementById("address").value;
-        const orderId = document.getElementById("orderId").value;
-        const total = parseFloat(cartTotalElement.textContent);
-        const items = cart;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+    const orderId = document.getElementById("orderId").value;
+    const total = parseFloat(cartTotalElement.textContent);
+    const items = cart;
 
-        // Open WhatsApp with pre-filled message
-        const whatsappNumber = "923051174274"; // Country code + phone number
-        const whatsappMessage = encodeURIComponent(`Order Details:
-    Order ID: ${orderId}
-    Name: ${name}
-    Email: ${email}
-    Phone: ${phone}
-    Address: ${address}
-    Total: Rs ${total}
-    Items:
-    ${items.map(item => `${item.name} (${item.size}) - Rs ${item.price} x ${item.quantity}`).join("\n")}
-        `);
+    const orderDetails = `Order Details:
+Order ID: ${orderId}
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Address: ${address}
+Total: Rs ${total}
+Items:
+${items.map(item => `${item.name} (${item.size}) - Rs ${item.price} x ${item.quantity}`).join("\n")}
+    `;
 
+    // Detect if the user is on mobile
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
         // Open WhatsApp
+        const whatsappNumber = "923374993772"; // Include country code without "+"
+        const whatsappMessage = encodeURIComponent(orderDetails);
         window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, "_blank");
-
-        // Open email client with pre-filled message
+    } else {
+        // Open email client
         const emailRecipient = "affanraog11@gmail.com";
         const emailSubject = encodeURIComponent(`New Order - ${orderId}`);
-        const emailBody = encodeURIComponent(`Order Details:
-    Order ID: ${orderId}
-    Name: ${name}
-    Email: ${email}
-    Phone: ${phone}
-    Address: ${address}
-    Total: Rs ${total}
-    Items:
-    ${items.map(item => `${item.name} (${item.size}) - Rs ${item.price} x ${item.quantity}`).join("\n")}
-        `);
-
+        const emailBody = encodeURIComponent(orderDetails);
         window.open(`mailto:${emailRecipient}?subject=${emailSubject}&body=${emailBody}`, "_blank");
+    }
 
-        // Clear cart and update display
-        cart = [];
-        updateCart();
+    // Clear cart and update display
+    cart = [];
+    updateCart();
 
-        // Optionally show confirmation message
-        alert("Your order details have been prepared for WhatsApp or Email. Please review and send!");
-    });
+    // Optionally show confirmation message
+    alert("Your order details have been prepared. Please review and send!");
+});
+
 
 
 
