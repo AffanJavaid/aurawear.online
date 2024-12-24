@@ -12,12 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             const name = button.getAttribute("data-name");
             const price = parseFloat(button.getAttribute("data-price"));
+            const size = button.closest(".card-body").querySelector(".size-select").value; // Get selected size
 
-            const existingItem = cart.find((item) => item.name === name);
+            const existingItem = cart.find((item) => item.name === name && item.size === size);
             if (existingItem) {
                 existingItem.quantity++;
             } else {
-                cart.push({ name, price, quantity: 1 });
+                cart.push({ name, price, size, quantity: 1 });
             }
 
             updateCart();
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const itemElement = document.createElement("div");
             itemElement.classList.add("cart-item");
             itemElement.innerHTML = `
-                <p>${item.name} - Rs ${item.price} x ${item.quantity}</p>
+                <p>${item.name} (${item.size}) - Rs ${item.price} x ${item.quantity}</p>
                 <button class="btn btn-danger btn-sm remove-item" data-index="${index}">Remove</button>
             `;
             cartItemsContainer.appendChild(itemElement);
@@ -66,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Handle order form submission
     orderForm.addEventListener("submit", (e) => {
         e.preventDefault();
-    
+
         const name = document.getElementById("name").value;
         const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
@@ -74,9 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const orderId = document.getElementById("orderId").value;
         const total = parseFloat(cartTotalElement.textContent);
         const items = cart;
-    
+
         const orderData = { order_id: orderId, name, email, phone, address, total_price: total, items };
-    
+
         // Send data to backend
         fetch("https://aurawear-backend.onrender.com/orders", {
             method: "POST",
@@ -97,5 +98,4 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error(error);
             });
     });
-    
 });

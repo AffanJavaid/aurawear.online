@@ -1,12 +1,84 @@
-
-.original-price {
-    text-decoration: line-through;
-    color: red; /* Optional: Make the crossed-out price stand out */
-    margin-right: 10px;
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
-.sale-price {
-    color: green;
-    font-weight: bold;
-    font-size: 20px; /* Slightly larger to emphasize the sale price */
+.navbar {
+    padding: 15px 0;
+}
+
+.hero {
+    background-color: #333;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.hero .btn-warning {
+    background-color: #ffc107;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.hero .btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    height: 300px;
+    object-fit: cover;
+}
+
+.product-images {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.product-images img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0; /* All images hidden by default */
+}
+
+.product-images img.active {
+    opacity: 1; /* Show the default (first) image */
+}
+
+.product-card:hover .product-images img.active {
+    opacity: 0; /* Hide the first image on hover */
+}
+
+.product-card:hover .product-images img:nth-child(2) {
+    opacity: 1; /* Show the second image on hover */
+}
+
+.price {
+    font-size: 18px;
+}
+
+.price .text-decoration-line-through {
+    margin-right: 10px;
 }
