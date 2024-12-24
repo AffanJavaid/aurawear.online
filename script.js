@@ -64,7 +64,46 @@ document.addEventListener("DOMContentLoaded", () => {
         orderFormModal.show();
     });
 
-    // Handle order form submission
+//     // Handle order form submission
+//     orderForm.addEventListener("submit", (e) => {
+//         e.preventDefault();
+
+//         const name = document.getElementById("name").value;
+//         const email = document.getElementById("email").value;
+//         const phone = document.getElementById("phone").value;
+//         const address = document.getElementById("address").value;
+//         const orderId = document.getElementById("orderId").value;
+//         const total = parseFloat(cartTotalElement.textContent);
+//         const items = cart;
+
+//         const orderData = { order_id: orderId, name, email, phone, address, total_price: total, items };
+
+//         // Show confirmation message immediately
+//         alert("Thank you! Your order has been placed successfully. We will process it shortly.");
+
+//         // Hide the order modal immediately
+//         orderFormModal.hide();
+
+//         // Clear the cart and update the display
+//         cart = [];
+//         updateCart();
+
+//         // Send data to backend asynchronously
+//         fetch("https://aurawear-backend.onrender.com/orders", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(orderData),
+//         })
+//             .then((response) => response.json())
+//             .then((data) => {
+//                 console.log(`Order submitted to backend successfully! Order ID: ${data.orderId}`);
+//             })
+//             .catch((error) => {
+//                 console.error("Error submitting order to backend:", error);
+//             });
+//     });
     orderForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -76,32 +115,46 @@ document.addEventListener("DOMContentLoaded", () => {
         const total = parseFloat(cartTotalElement.textContent);
         const items = cart;
 
-        const orderData = { order_id: orderId, name, email, phone, address, total_price: total, items };
+        // Open WhatsApp with pre-filled message
+        const whatsappNumber = "923051174274"; // Country code + phone number
+        const whatsappMessage = encodeURIComponent(`Order Details:
+    Order ID: ${orderId}
+    Name: ${name}
+    Email: ${email}
+    Phone: ${phone}
+    Address: ${address}
+    Total: Rs ${total}
+    Items:
+    ${items.map(item => `${item.name} (${item.size}) - Rs ${item.price} x ${item.quantity}`).join("\n")}
+        `);
 
-        // Show confirmation message immediately
-        alert("Thank you! Your order has been placed successfully. We will process it shortly.");
+        // Open WhatsApp
+        window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, "_blank");
 
-        // Hide the order modal immediately
-        orderFormModal.hide();
+        // Open email client with pre-filled message
+        const emailRecipient = "affanraog11@gmail.com";
+        const emailSubject = encodeURIComponent(`New Order - ${orderId}`);
+        const emailBody = encodeURIComponent(`Order Details:
+    Order ID: ${orderId}
+    Name: ${name}
+    Email: ${email}
+    Phone: ${phone}
+    Address: ${address}
+    Total: Rs ${total}
+    Items:
+    ${items.map(item => `${item.name} (${item.size}) - Rs ${item.price} x ${item.quantity}`).join("\n")}
+        `);
 
-        // Clear the cart and update the display
+        window.open(`mailto:${emailRecipient}?subject=${emailSubject}&body=${emailBody}`, "_blank");
+
+        // Clear cart and update display
         cart = [];
         updateCart();
 
-        // Send data to backend asynchronously
-        fetch("https://aurawear-backend.onrender.com/orders", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(orderData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(`Order submitted to backend successfully! Order ID: ${data.orderId}`);
-            })
-            .catch((error) => {
-                console.error("Error submitting order to backend:", error);
-            });
+        // Optionally show confirmation message
+        alert("Your order details have been prepared for WhatsApp or Email. Please review and send!");
     });
+
+
+
 });
