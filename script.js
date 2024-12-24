@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             const name = button.getAttribute("data-name");
             const price = parseFloat(button.getAttribute("data-price"));
-            const size = button.closest(".card-body").querySelector(".size-select").value; // Get selected size
+            const size = button.closest(".card-body").querySelector(".size-btn.active").getAttribute("data-size"); // Get selected size
 
             const existingItem = cart.find((item) => item.name === name && item.size === size);
             if (existingItem) {
@@ -24,6 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
             updateCart();
         });
     });
+
+    document.querySelectorAll('.size-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const allButtons = button.closest(".size-select").querySelectorAll('.size-btn');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+    
 
     // Update cart display
     function updateCart() {
@@ -64,46 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         orderFormModal.show();
     });
 
-//     // Handle order form submission
-//     orderForm.addEventListener("submit", (e) => {
-//         e.preventDefault();
 
-//         const name = document.getElementById("name").value;
-//         const email = document.getElementById("email").value;
-//         const phone = document.getElementById("phone").value;
-//         const address = document.getElementById("address").value;
-//         const orderId = document.getElementById("orderId").value;
-//         const total = parseFloat(cartTotalElement.textContent);
-//         const items = cart;
-
-//         const orderData = { order_id: orderId, name, email, phone, address, total_price: total, items };
-
-//         // Show confirmation message immediately
-//         alert("Thank you! Your order has been placed successfully. We will process it shortly.");
-
-//         // Hide the order modal immediately
-//         orderFormModal.hide();
-
-//         // Clear the cart and update the display
-//         cart = [];
-//         updateCart();
-
-//         // Send data to backend asynchronously
-//         fetch("https://aurawear-backend.onrender.com/orders", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(orderData),
-//         })
-//             .then((response) => response.json())
-//             .then((data) => {
-//                 console.log(`Order submitted to backend successfully! Order ID: ${data.orderId}`);
-//             })
-//             .catch((error) => {
-//                 console.error("Error submitting order to backend:", error);
-//             });
-//     });
 orderForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
