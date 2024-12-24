@@ -117,7 +117,11 @@ ${items.map(item => `${item.name} (${item.size}) - Rs ${item.price} x ${item.qua
     updateCart();
 
     // Optionally show confirmation message
-    alert("Your order details have been prepared. Please review and send!");
+    const customerName = document.getElementById("name").value; // Fetch customer name from form
+    document.getElementById("toastCustomerName").textContent = customerName; // Set customer name in toast
+    const confirmationToast = new bootstrap.Toast(document.getElementById("confirmationToast"));
+    confirmationToast.show(); // Show the toast
+
 });
 
 
